@@ -30,10 +30,26 @@ regexp_2: {
         unsafe: true,
     }
     input: {
-        console.log(JSON.stringify("COMPASS? Overpass.".match(new RegExp("([Sap]+)", "ig"))));
+        console.log(JSON.stringify("COMPASS? Overpass.".match(new RegExp("(pass)", "ig"))));
     }
     expect: {
-        console.log(JSON.stringify("COMPASS? Overpass.".match(/([Sap]+)/gi)));
+        console.log(JSON.stringify("COMPASS? Overpass.".match(/(pass)/gi)));
     }
     expect_stdout: '["PASS","pass"]'
+}
+
+regexp_no_ddos: {
+    options = {
+        evaluate: true,
+        unsafe: true,
+    }
+    input: {
+        console.log(/(b+)b+/.test("bbb"))
+        console.log(RegExp("(b+)b+").test("bbb"))
+    }
+    expect: {
+        console.log(/(b+)b+/.test("bbb"))
+        console.log(RegExp("(b+)b+").test("bbb"))
+    }
+    expect_stdout: ["true", "true"]
 }
